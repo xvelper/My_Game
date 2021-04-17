@@ -1,70 +1,62 @@
 document.onkeydown = checkButton;
 
 function checkButton(event) {
-    let cubeRight = cube.x + cube.width;
-    let cubeButtom = cube.y + cube.height; 
-
-    let cubeRight = map.x + map.width;
-    let mapButtom = map.y + map.height;
-
 
     if (event.keyCode === 38) {
-        // key: "ArrowUp"
-
-        if (map.y < cube.y) {
+        // ArrowUp: 38
+        if (cube.y - cube.step > map.y) {
             cube.y -= cube.step;
+        }
+
+        else {
+            cube.y = map.y;
         }
     }
 
     if (event.keyCode === 40) {
-        // key: "ArrowDown"
-        if (cubeButtom < mapButtom) {
-            if ((mapButtom - cubeButtom) < cube.step) {
-                cube.y += mapButtom - cubeButtom
-            }
-            else {
+        // ArrowDown 40
+        if (cube.y + cube.height + cube.step < map.width + map.x) {
             cube.y += cube.step;
-            }
+        }
+
+        else {
+            cube.y = map.width + map.x - cube.height;
         }
     }
 
     if (event.keyCode === 37) {
-        // key: "ArrowLeft"
-        if (map.y < cube.x) {
-            if ( cube.x < cube.step) {
-                console.log(cube.x);
-                cube.x -= cube.x;
-            }
-            else {
+        // ArrowLeft: 37
+        if (cube.x - cube.step > map.x) {
             cube.x -= cube.step;
-            }
+        }
+
+        else {
+            cube.x = map.x;
         }
     }
 
     if (event.keyCode === 39) {
-        // key: "ArrowRight"
-        if ((cube.x + cube.width) < mapRight) {
-
-            if ((mapRight-(cubeRight + cube.width)) < cube.step) {
-                cube.x += (mapRight-(cubeRight + cube.width));
-            }
-            else {
+        // ArrowRight: 39
+        if (cube.x + cube.width + cube.step < map.height + map.y) {
             cube.x += cube.step;
-            }
         }
 
+        else {
+            cube.x = map.height + map.y - cube.width;
+        }
     }
-
-    renderCube(cube);
+    
+    renderCube(cube); // Рендер куба каждый сдвиг
 }
 
 function renderCube(cube) {
     document.getElementById(cube.id).style.top = cube.y + 'px';
     document.getElementById(cube.id).style.left = cube.x + 'px';
-    document.getElementById(cube.id).style.transition = 'ease ' + cube.trn + 's';
+    document.getElementById(cube.id).style.transition = 'ease ' +  cube.trn + 's';
     document.getElementById(cube.id).style.width = cube.width + 'px';
     document.getElementById(cube.id).style.height = cube.height + 'px';
     document.getElementById(cube.id).style.backgroundColor = cube.color;
+
 }
 
 function renderMap(map) {
@@ -73,4 +65,37 @@ function renderMap(map) {
     document.getElementById('map').style.width = map.width + 'px';
     document.getElementById('map').style.height = map.height + 'px';
     document.getElementById('map').style.backgroundColor = map.color;
+}
+
+function spawnCube(map, cube) {
+    let mapMinX = map.x;
+    let mapMaxX = map.x + map.width - cube.width;
+
+    let mapMinY = map.y;
+    let mapMaxY = map.y + map.height - cube.height;
+
+    cube.x = Math.round(Math.random() * (mapMaxX - mapMinX) + mapMinX);
+    cube.y = Math.round(Math.random() * (mapMaxY - mapMinY) + mapMinY);
+    return cube;
+}
+
+function renderBots(bots) {
+    bots.map(bot => {
+        let div = document.createElement('div');
+        div.id = bot.id;
+        div.className = 'bot';
+        document.body.append(div);
+        renderBot(bot);
+        console.log(div);
+    });
+
+}
+
+function renderBot(bot) {
+    document.getElementById(bot.id).style.top = bot.y + 'px';
+    document.getElementById(bot.id).style.left = bot.x + 'px';
+    document.getElementById(bot.id).style.transition = 'ease ' +  bot.trn + 's';
+    document.getElementById(bot.id).style.width = bot.width + 'px';
+    document.getElementById(bot.id).style.height = bot.height + 'px';
+    document.getElementById(bot.id).style.backgroundColor = bot.color;
 }

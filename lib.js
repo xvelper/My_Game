@@ -82,20 +82,55 @@ function spawnCube(map, cube) {
 function renderBots(bots) {
     bots.map(bot => {
         let div = document.createElement('div');
-        div.id = bot.id;
+        div.id = 'bot_' + bot.id;
         div.className = 'bot';
         document.body.append(div);
         renderBot(bot);
-        console.log(div);
+        // console.log(div);
     });
 
 }
 
 function renderBot(bot) {
-    document.getElementById(bot.id).style.top = bot.y + 'px';
-    document.getElementById(bot.id).style.left = bot.x + 'px';
-    document.getElementById(bot.id).style.transition = 'ease ' +  bot.trn + 's';
-    document.getElementById(bot.id).style.width = bot.width + 'px';
-    document.getElementById(bot.id).style.height = bot.height + 'px';
-    document.getElementById(bot.id).style.backgroundColor = bot.color;
+    document.getElementById('bot_' + bot.id).style.top = bot.y + 'px';
+    document.getElementById('bot_' + bot.id).style.left = bot.x + 'px';
+    document.getElementById('bot_' + bot.id).style.transition = 'ease ' +  bot.trn + 's';
+    document.getElementById('bot_' + bot.id).style.width = bot.width + 'px';
+    document.getElementById('bot_' + bot.id).style.height = bot.height + 'px';
+    document.getElementById('bot_' + bot.id).style.backgroundColor = bot.color;
+}
+
+function renderBuffs(buffs) {
+    buffs.map(buff => {
+        let div = document.createElement('div');
+        div.id = 'buff_' + buff.id;
+        div.className = 'buff';
+        document.body.append(div);
+        renderBuff(buff);
+    });
+
+}
+
+function renderBuff(buff) {
+    document.getElementById('buff_' + buff.id).style.top = buff.y + 'px';
+    document.getElementById('buff_' + buff.id).style.left = buff.x + 'px';
+    document.getElementById('buff_' + buff.id).style.transition = 'ease ' +  buff.trn + 's';
+    document.getElementById('buff_' + buff.id).style.width = buff.width + 'px';
+    document.getElementById('buff_' + buff.id).style.height = buff.height + 'px';
+    document.getElementById('buff_' + buff.id).style.backgroundColor = buff.color;
+}
+
+function timeTike() {
+    buffsLogic();
+    botsLogic();
+}
+
+function buffsLogic() {
+    buffs.push(spawnCube(map, buff));
+    
+    renderBuffs(buffs);
+}
+function botsLogic() {
+    bots.push(spawnCube(map, bot));
+    renderBots(bots);
 }

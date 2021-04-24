@@ -7,7 +7,7 @@ let map = {
 }
 
 let cube = {
-    x: 0, // Случ. кординаты спавна
+    x: 0, 
     y: 0,
     id: "cube",
     width: 56,
@@ -31,7 +31,21 @@ let bot = {
 }
 
 
-bots.push(bot);
+
+let buffs = [];
+
+let buff = {
+    x: 0,
+    y: 0,
+    id: 1,
+    width: 56,
+    height: 56,
+    trn: .25,
+    step: 56,
+    color: 'green'
+};
+
 renderMap(map);
 renderCube(spawnCube(map, cube));
-renderBots(bots);
+
+let tike = setInterval(timeTike, 1000);

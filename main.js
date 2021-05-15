@@ -1,23 +1,27 @@
 let map = {
     x: 0,
     y: 0,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    // width: window.innerWidth,
+    // height: window.innerHeight,
+    width: 720,
+    height: 560,
     color: '#f5f5f5'
 }
 
 let cube = {
-    x: 0, 
+    x: 0,
     y: 0,
-    id: "cube",
+    id: 'cube',
     width: 56,
     height: 56,
     trn: .25,
     step: 56,
-    color: 'black'
+    color: 'black',
+    oldX: 0,
+    oldY: 0
 }
 
-let bots = []
+let bots = [];
 
 let bot = {
     x: 0,
@@ -30,7 +34,7 @@ let bot = {
     color: 'red'
 }
 
-
+// bots.push(spawnCube(map, bot));
 
 let buffs = [];
 
@@ -42,10 +46,14 @@ let buff = {
     height: 56,
     trn: .25,
     step: 56,
-    color: 'green'
-};
+    color: 'yellow'
+}
+
+// buffs.push(spawnCube(map, buff));
 
 renderMap(map);
 renderCube(spawnCube(map, cube));
+// renderBots(bots);
+// renderBuffs(buffs);
 
-let tike = setInterval(timeTike, 1000);
+let tike = setInterval(timeTike, 10000);
